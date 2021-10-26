@@ -1,0 +1,129 @@
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+  <mat-card class="box">
+    <mat-card-header>
+      <mat-card-title>Sign Up</mat-card-title>
+    </mat-card-header>
+
+    <form class="example-form" #singupn_form="ngForm">
+      <mat-card-content>
+        <mat-form-field class="example-full-width">
+          <input
+            matInput
+            placeholder="First Name"
+            type="text"
+            name="userFirstName"
+            ngModel
+            #userFirstName="ngModel"
+            required
+          />
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <input
+            matInput
+            placeholder="Last Name"
+            type="text"
+            name="userLastName"
+            ngModel
+            #userFirstName="ngModel"
+            required
+          />
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <input
+            matInput
+            placeholder="Username"
+            type="text"
+            name="userName"
+            ngModel
+            #userName="ngModel"
+            required
+            [class.is-invalid]="userName.invalid && userName.touched"
+          />
+          <!-- <small [class.d-none]="userName.valid || userName.untouched"
+            >Username is mandatory</small
+          > -->
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <input
+            matInput
+            placeholder="Email"
+            type="text"
+            name="userEmail"
+            ngModel
+            #userEmail="ngModel"
+            required
+          />
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <input
+            matInput
+            placeholder="Enter Password"
+            type="password"
+            name="password"
+            ngModel
+            #password="ngModel"
+            pattern="/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/"
+            required
+          />
+        </mat-form-field>
+
+        <small
+          *ngIf="
+            !!password.errors && !!password.errors.pattern && password.touched
+          "
+          class="error-message"
+        >
+          Password should be at least 8 characters long should contain one
+          number,one character and one special character.
+        </small>
+
+        <mat-form-field class="example-full-width">
+          <input
+            matInput
+            placeholder="Confirm Password"
+            type="password"
+            name="confirmPassword"
+            ngModel
+            #confirmPassword="ngModel"
+            required
+            (change)="comaparePassword(confirmPassword.value, password.value)"
+          />
+        </mat-form-field>
+
+        <small
+          *ngIf="!isValidPassword && confirmPassword.touched"
+          class="error-message"
+        >
+          Password Mismatch
+        </small>
+      </mat-card-content>
+
+      <button mat-stroked-button color="accent" class="btn-block">
+        Register
+      </button>
+    </form>
+  </mat-card>
+</div>
+
+<!-- 
+  <mat-card-content>
+
+
+   
+
+ 
+
+  <button
+    mat-stroked-button
+    color="accent"
+    class="btn-block"
+    (click)="onButtonClick(signup_form.value)"
+  >
+    Log in
+  </button>
+  
+  <!-- {{ userPassword.untounched }} -->
