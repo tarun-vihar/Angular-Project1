@@ -1,8 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { User } from '../user';
+
 import { first } from 'rxjs/operators';
 import { AuthenticationService } from '../services/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,11 @@ export class LoginComponent implements OnInit {
   submitted = false;
   returnUrl: string | undefined;
   authenticateService: AuthenticationService;
-  constructor(private authService: AuthenticationService) {
+
+  constructor(
+    private authService: AuthenticationService,
+    private router: Router
+  ) {
     this.authenticateService = authService;
   }
 
@@ -40,13 +45,12 @@ export class LoginComponent implements OnInit {
       .subscribe(
         (data) => {
           // this.router.navigate([this.returnUrl]);
-          console.log(data);
         },
         (error) => {
           alert(error);
         }
       );
 
-    useInput.reset();
+    // window.location.reload();
   }
 }

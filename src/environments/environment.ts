@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://localhost:12378/',
+  baseUrl: 'http://localhost:8080/',
+  productAPI: 'https://fakestoreapi.com/products/',
 };
 
 /*

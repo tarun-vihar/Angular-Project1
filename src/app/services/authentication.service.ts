@@ -22,5 +22,13 @@ export class AuthenticationService {
     });
   }
 
+  public registerUser(formData: any) {
+    let extension = 'api/v1/user/signup';
+    return this.httpClient.post<any>(this.URL + extension, formData, {
+      reportProgress: true,
+      observe: 'events',
+    });
+  }
+
   public matcher(input1: string, input2: string) {}
 }

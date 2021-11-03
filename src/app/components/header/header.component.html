@@ -1,0 +1,28 @@
+<header>
+  <div class="navbar bg-primary shadow-sm">
+    <div class="navbar-brand align-item-center d-flex">
+      <i class="fas fa-shipping-fast logo">
+        &nbsp;
+        <strong> ShopAround</strong>
+      </i>
+
+      <div class="form-group">
+        <input
+          type="text"
+          placeholder="Search Product"
+          [(ngModel)]="searchKey"
+          (keyup)="search($event)"
+          class="form-control"
+        />
+      </div>
+      <span class="fas fa-search search-icon"></span>
+    </div>
+
+    <button routerLink="login" class="btn btn-primary">Login</button>
+
+    <button routerLink="cart" class="btn bty-primary">
+      <i class="fas fa-cart-plus cart-icon"></i>
+      <div class="badge bg-danger">{{ totalItems }}</div>
+    </button>
+  </div>
+</header>
