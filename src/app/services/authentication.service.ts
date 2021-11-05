@@ -16,19 +16,18 @@ export class AuthenticationService {
 
   public validateUser(formData: any) {
     let extension = 'api/v1/user/login';
-    return this.httpClient.post<any>(this.URL + extension, formData, {
-      reportProgress: true,
-      observe: 'events',
-    });
+    return this.httpClient.post<any>(this.URL + extension, formData);
   }
 
   public registerUser(formData: any) {
-    let extension = 'api/v1/user/signup';
-    return this.httpClient.post<any>(this.URL + extension, formData, {
-      reportProgress: true,
-      observe: 'events',
-    });
+    let extension = 'api/v1/user/addUser';
+    return this.httpClient.post<any>(this.URL + extension, formData);
   }
 
   public matcher(input1: string, input2: string) {}
+
+  public instantiate() {
+    let extension = 'api/v1/user/start';
+    return this.httpClient.get<any>(this.URL + extension);
+  }
 }

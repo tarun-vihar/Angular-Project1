@@ -37,13 +37,14 @@ export class SignupComponent implements OnInit {
       .pipe(first())
       .subscribe(
         (data) => {
-          // this.router.navigate([this.returnUrl]);
+          // console.log('Inside sign up');
+          console.log(data);
         },
         (error) => {
           alert(error);
         }
       );
 
-    // window.location.reload();
+    userDetails.clear();
   }
 }

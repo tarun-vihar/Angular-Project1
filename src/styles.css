@@ -22,3 +22,7 @@ body {
 .width-12 {
   width: 12%;
 }
+
+.float-r {
+  float: right;
+}

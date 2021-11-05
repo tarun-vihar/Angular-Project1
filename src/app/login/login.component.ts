@@ -14,6 +14,8 @@ export class LoginComponent implements OnInit {
   form: FormGroup | undefined;
   loading = false;
   submitted = false;
+  showHeading = false;
+  responseMessgae: string = '';
   returnUrl: string | undefined;
   authenticateService: AuthenticationService;
 
@@ -33,9 +35,9 @@ export class LoginComponent implements OnInit {
   // };
 
   onButtonClick(useInput: any) {
-    // console.log(un);
+    console.log('test');
     this.submitted = true;
-
+    this.showHeading = false;
     this.nameSubmit.emit(useInput);
 
     console.log(useInput);
@@ -44,9 +46,12 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         (data) => {
-          // this.router.navigate([this.returnUrl]);
+          this.showHeading = true;
+          this.responseMessgae = data.message;
         },
         (error) => {
+          this.showHeading = true;
+          this.responseMessgae = 'Please retry after 10 min';
           alert(error);
         }
       );

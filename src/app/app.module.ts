@@ -15,6 +15,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { CartComponent } from './components/cart/cart.component';
 import { ProductComponent } from './components/product/product.component';
 import { FilterPipe } from './common/filter.pipe';
+import { BackgroundHeaderComponent } from './background-header/background-header.component';
 // import {Routin}
 
 @NgModule({
@@ -26,6 +27,7 @@ import { FilterPipe } from './common/filter.pipe';
     CartComponent,
     ProductComponent,
     FilterPipe,
+    BackgroundHeaderComponent,
   ],
   imports: [
     BrowserModule,
