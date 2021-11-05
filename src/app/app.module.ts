@@ -11,10 +11,7 @@ import { MaterialModule } from './material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { HeaderComponent } from './components/header/header.component';
-import { CartComponent } from './components/cart/cart.component';
-import { ProductComponent } from './components/product/product.component';
-import { FilterPipe } from './common/filter.pipe';
+
 import { BackgroundHeaderComponent } from './background-header/background-header.component';
 // import {Routin}
 
@@ -23,10 +20,6 @@ import { BackgroundHeaderComponent } from './background-header/background-header
     AppComponent,
     LoginComponent,
     SignupComponent,
-    HeaderComponent,
-    CartComponent,
-    ProductComponent,
-    FilterPipe,
     BackgroundHeaderComponent,
   ],
   imports: [
