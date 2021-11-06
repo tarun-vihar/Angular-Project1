@@ -1,9 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, NgForm } from '@angular/forms';
 
 import { first } from 'rxjs/operators';
 import { AuthenticationService } from '../services/authentication.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {
     this.authenticateService = authService;
   }
@@ -36,8 +38,7 @@ export class LoginComponent implements OnInit {
 
   onButtonClick(useInput: any) {
     console.log('test');
-    this.submitted = true;
-    this.showHeading = false;
+
     this.nameSubmit.emit(useInput);
 
     console.log(useInput);
@@ -46,16 +47,15 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         (data) => {
-          this.showHeading = true;
-          this.responseMessgae = data.message;
+          if (data.status) {
+            this.toastr.success(data.message);
+          } else this.toastr.error(data.message);
         },
         (error) => {
-          this.showHeading = true;
-          this.responseMessgae = 'Please retry after 10 min';
-          alert(error);
+          this.toastr.error('Unexpected Error , Please retry after some time');
         }
       );
 
-    // window.location.reload();
+    useInput.resetForm();
   }
 }

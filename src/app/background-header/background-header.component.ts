@@ -1,4 +1,6 @@
+import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { first } from 'rxjs/operators';
 import { AuthenticationService } from '../services/authentication.service';
 
@@ -8,7 +10,10 @@ import { AuthenticationService } from '../services/authentication.service';
   styleUrls: ['./background-header.component.css'],
 })
 export class BackgroundHeaderComponent implements OnInit {
-  constructor(private authService: AuthenticationService) {}
+  constructor(
+    private authService: AuthenticationService,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -18,11 +23,12 @@ export class BackgroundHeaderComponent implements OnInit {
       .pipe(first())
       .subscribe(
         (data) => {
-          console.log('Sucess');
-          console.log(data);
+          if (!!data && data.status) {
+            this.toastr.success(data.message);
+          } else this.toastr.error(data.message);
         },
         (error) => {
-          console.log('failed');
+          this.toastr.error('Upexpected Error');
         }
       );
   }

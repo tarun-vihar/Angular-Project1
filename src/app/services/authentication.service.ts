@@ -30,4 +30,9 @@ export class AuthenticationService {
     let extension = 'api/v1/user/start';
     return this.httpClient.get<any>(this.URL + extension);
   }
+
+  logout(): void {
+    localStorage.setItem('isLoggedIn', 'false');
+    localStorage.removeItem('token');
+  }
 }
