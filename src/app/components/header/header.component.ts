@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { CartService } from 'src/app/services/cart.service';
 
 @Component({
@@ -9,10 +10,18 @@ import { CartService } from 'src/app/services/cart.service';
 export class HeaderComponent implements OnInit {
   public totalItems: number = 0;
   public searchKey: string = '';
-  constructor(private cartService: CartService) {
+  public currentUser: any = '';
+  constructor(
+    private cartService: CartService,
+    private authService: AuthenticationService
+  ) {
     this.cartService.getProducts().subscribe((res: any) => {
       this.totalItems = res.length;
     });
+
+    if (!!this.authService.currentUserValue) {
+      this.currentUser = this.authService.currentUserValue.data;
+    }
   }
 
   ngOnInit(): void {}

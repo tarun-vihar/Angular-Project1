@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
@@ -10,7 +10,17 @@ import { environment } from 'src/environments/environment';
 export class AuthenticationService {
   httpClient: HttpClient;
   URL: string = environment.baseUrl;
+  public currentUserSubject: BehaviorSubject<any>;
+  public currentUser: Observable<any>;
+
   constructor(private http: HttpClient) {
+    let obj = { data: 'Tarun' };
+    localStorage.setItem('currentUser', JSON.stringify(obj));
+
+    this.currentUserSubject = new BehaviorSubject<any>(
+      JSON.parse(localStorage.getItem('currentUser') || '{}')
+    );
+    this.currentUser = this.currentUserSubject.asObservable();
     this.httpClient = http;
   }
 
@@ -29,5 +39,13 @@ export class AuthenticationService {
   public instantiate() {
     let extension = 'api/v1/user/start';
     return this.httpClient.get<any>(this.URL + extension);
+  }
+
+  public get currentUserValue(): any {
+    return this.currentUserSubject.value;
+  }
+  public logout() {
+    localStorage.removeItem('currentUser');
+    this.currentUserSubject.next({});
   }
 }

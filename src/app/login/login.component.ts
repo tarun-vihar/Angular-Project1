@@ -4,6 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AuthenticationService } from '../services/authentication.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -17,13 +18,15 @@ export class LoginComponent implements OnInit {
   showHeading = false;
   responseMessgae: string = '';
   returnUrl: string | undefined;
-  authenticateService: AuthenticationService;
 
   constructor(
     private authService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {
-    this.authenticateService = authService;
+    if (!!this.authService.currentUserValue) {
+      this.router.navigate(['/']);
+    }
   }
 
   @Output() nameSubmit: EventEmitter<string> = new EventEmitter<string>();
@@ -41,21 +44,21 @@ export class LoginComponent implements OnInit {
     this.nameSubmit.emit(useInput);
 
     console.log(useInput);
-    this.authenticateService
+    this.authService
       .validateUser(useInput.value)
       .pipe(first())
       .subscribe(
         (data) => {
-          this.showHeading = true;
-          this.responseMessgae = data.message;
+          if (data.status) {
+            this.toastr.success(data.message);
+            localStorage.setItem('currnetUser', JSON.stringify(data));
+          } else this.toastr.error(data.message);
         },
         (error) => {
-          this.showHeading = true;
-          this.responseMessgae = 'Please retry after 10 min';
-          alert(error);
+          this.toastr.error('Unexpected Error , Please retry after some time');
         }
       );
 
-    // window.location.reload();
+    useInput.resetForm();
   }
 }
