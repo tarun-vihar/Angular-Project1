@@ -1,18 +1,19 @@
-import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { first } from 'rxjs/operators';
 import { AuthenticationService } from '../services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
+import { first } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-background-header',
-  templateUrl: './background-header.component.html',
-  styleUrls: ['./background-header.component.css'],
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css'],
 })
-export class BackgroundHeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit {
   constructor(
-    private authService: AuthenticationService,
-    private toastr: ToastrService
+    public authService: AuthenticationService,
+    private toastr: ToastrService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {}
@@ -31,5 +32,10 @@ export class BackgroundHeaderComponent implements OnInit {
           this.toastr.error('Upexpected Error');
         }
       );
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigateByUrl('/home');
   }
 }

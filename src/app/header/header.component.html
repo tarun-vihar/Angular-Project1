@@ -1,0 +1,25 @@
+<div class="header">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h1><a href="" class="title"> Blog Collection</a></h1>
+      </div>
+      <!-- Title -->
+      <div class="col-md-6" *ngIf="authService.isAuthenticated()">
+        <a class="logout btn btn-default" (click)="logout()"> Log out</a>
+        <a routerLink="/add-blog" class="new-post btn btn-default">Add Blog</a>
+        <a class="register btn btn-default" (click)="initialise()">
+          Initialise DB</a
+        >
+
+        <!-- <button class="logout btn btn-default">Logout</button> -->
+      </div>
+      <div class="col-md-6" *ngIf="!authService.isAuthenticated()">
+        <a routerLink="/login" class="login btn btn-default">Login</a>
+        <a routerLink="/signup" class="register btn btn-default">Register</a>
+      </div>
+
+      <!-- Login and Register -->
+    </div>
+  </div>
+</div>

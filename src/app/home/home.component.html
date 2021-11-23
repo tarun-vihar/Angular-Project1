@@ -1,0 +1,22 @@
+<div class="content">
+  <div class="container">
+    <div class="row" *ngFor="let blog of blogs | async">
+      <!-- {{ blog | json }} -->
+      <div class="blogpost" *ngIf="!!blog && !!blog.user">
+        <h3>
+          <a class="blog-title">{{ blog.blogName }}</a>
+        </h3>
+        <div>
+          <i class="fas fa-user"></i> Author:
+          <span>{{ blog.user.firstName }}</span>
+        </div>
+
+        <p [innerHTML]="blog.description"></p>
+        <div>
+          <a type="button" class="read-more btn btn-default">Read More</a>
+        </div>
+        <hr />
+      </div>
+    </div>
+  </div>
+</div>

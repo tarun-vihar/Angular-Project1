@@ -13,6 +13,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { BackgroundHeaderComponent } from './background-header/background-header.component';
+import { HeaderComponent } from './header/header.component';
+import { NgxWebstorageModule } from 'ngx-webstorage';
+import { HomeComponent } from './home/home.component';
+import { AddBlogComponent } from './add-blog/add-blog.component';
+import { EditorModule } from '@tinymce/tinymce-angular';
+
 // import {Routin}
 
 @NgModule({
@@ -21,6 +27,9 @@ import { BackgroundHeaderComponent } from './background-header/background-header
     LoginComponent,
     SignupComponent,
     BackgroundHeaderComponent,
+    HeaderComponent,
+    HomeComponent,
+    AddBlogComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,10 +41,12 @@ import { BackgroundHeaderComponent } from './background-header/background-header
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgxWebstorageModule.forRoot(),
     ToastrModule.forRoot({
       timeOut: 10000,
       preventDuplicates: true,
     }),
+    EditorModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

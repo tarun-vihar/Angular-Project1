@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { LocalStorageService } from 'ngx-webstorage';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,10 @@ import { environment } from 'src/environments/environment';
 export class AuthenticationService {
   httpClient: HttpClient;
   URL: string = environment.baseUrl;
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private localStorge: LocalStorageService
+  ) {
     this.httpClient = http;
   }
 
@@ -31,8 +35,9 @@ export class AuthenticationService {
     return this.httpClient.get<any>(this.URL + extension);
   }
 
-  logout(): void {
-    localStorage.setItem('isLoggedIn', 'false');
-    localStorage.removeItem('token');
+  logout(): void {}
+
+  isAuthenticated(): Boolean {
+    return !!this.localStorge.retrieve('user');
   }
 }

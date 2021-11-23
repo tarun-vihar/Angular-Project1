@@ -5,6 +5,7 @@ import { first } from 'rxjs/operators';
 import { AuthenticationService } from '../services/authentication.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { LocalStorageService } from 'ngx-webstorage';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthenticationService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private localStorage: LocalStorageService
   ) {
     this.authenticateService = authService;
   }
@@ -41,15 +43,18 @@ export class LoginComponent implements OnInit {
 
     this.nameSubmit.emit(useInput);
 
-    console.log(useInput);
     this.authenticateService
       .validateUser(useInput.value)
       .pipe(first())
       .subscribe(
-        (data) => {
-          if (data.status) {
-            this.toastr.success(data.message);
-          } else this.toastr.error(data.message);
+        (res) => {
+          if (res.status) {
+            this.toastr.success(res.message);
+            this.localStorage.store('user', res.data);
+            this.router.navigateByUrl('/home');
+          } else {
+            this.toastr.error(res.message);
+          }
         },
         (error) => {
           this.toastr.error('Unexpected Error , Please retry after some time');
