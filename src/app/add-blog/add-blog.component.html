@@ -7,6 +7,7 @@
         (ngSubmit)="addPost()"
       >
         Create New Blog
+        <span class="fl-r"> <a routerLink="/home">Back To Home</a></span>
       </h3>
     </div>
     <hr />
@@ -18,8 +19,21 @@
           [formControlName]="'title'"
           class="form-control"
           placeholder="Title"
+          required
         />
       </div>
+
+      <div class="form-group">
+        <label class="post-tags">Tags</label>
+        <input
+          type="text"
+          [formControlName]="'tag'"
+          class="form-control"
+          placeholder="Enter Tags(sperated by comma)"
+          required
+        />
+      </div>
+
       <div class="form-group">
         <label class="post-content">Body</label>
         <editor
@@ -28,7 +42,13 @@
         ></editor>
       </div>
       <div class="form-group">
-        <button type="submit" class="btn btn-primary">Post</button>
+        <button
+          type="submit"
+          [disabled]="!addPostForm.valid"
+          class="btn btn-primary"
+        >
+          Post
+        </button>
       </div>
     </form>
   </div>

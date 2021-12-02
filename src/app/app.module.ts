@@ -18,6 +18,7 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
 import { HomeComponent } from './home/home.component';
 import { AddBlogComponent } from './add-blog/add-blog.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
+import { ViewBlogComponent } from './view-blog/view-blog.component';
 
 // import {Routin}
 
@@ -30,6 +31,7 @@ import { EditorModule } from '@tinymce/tinymce-angular';
     HeaderComponent,
     HomeComponent,
     AddBlogComponent,
+    ViewBlogComponent,
   ],
   imports: [
     BrowserModule,

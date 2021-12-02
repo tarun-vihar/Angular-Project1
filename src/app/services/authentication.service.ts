@@ -19,12 +19,12 @@ export class AuthenticationService {
   }
 
   public validateUser(formData: any) {
-    let extension = 'api/v1/user/login';
+    let extension = 'api/v1/auth/login';
     return this.httpClient.post<any>(this.URL + extension, formData);
   }
 
   public registerUser(formData: any) {
-    let extension = 'api/v1/user/addUser';
+    let extension = 'api/v1/auth/signup';
     return this.httpClient.post<any>(this.URL + extension, formData);
   }
 
@@ -35,7 +35,9 @@ export class AuthenticationService {
     return this.httpClient.get<any>(this.URL + extension);
   }
 
-  logout(): void {}
+  logout(): void {
+    this.localStorge.clear('user');
+  }
 
   isAuthenticated(): Boolean {
     return !!this.localStorge.retrieve('user');

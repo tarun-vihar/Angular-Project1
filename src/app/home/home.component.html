@@ -1,22 +1,31 @@
-<div class="content">
-  <div class="container">
-    <div class="row" *ngFor="let blog of blogs | async">
-      <!-- {{ blog | json }} -->
-      <div class="blogpost" *ngIf="!!blog && !!blog.user">
-        <h3>
-          <a class="blog-title">{{ blog.blogName }}</a>
-        </h3>
-        <div>
-          <i class="fas fa-user"></i> Author:
-          <span>{{ blog.user.firstName }}</span>
-        </div>
+<app-header></app-header>
+<section>
+  <mat-card *ngFor="let post of blogs | async">
+    <mat-card-content routerLink="{{ post.blogId }}">
+      <!-- <img mat-card-image src="{{ blog.image }}" alt="{{ post.title }}" /> -->
+      <h2>{{ post.blogName }}</h2>
+      <p>
+        <small
+          >Posted by <b> {{ post.firstName }} </b> &bull; on
+          {{ post.published | date: "fullDate" }}</small
+        >
+      </p>
+    </mat-card-content>
 
-        <p [innerHTML]="blog.description"></p>
-        <div>
-          <a type="button" class="read-more btn btn-default">Read More</a>
-        </div>
-        <hr />
-      </div>
-    </div>
-  </div>
-</div>
+    <mat-card-content>
+      <p [innerHTML]="post.description" class="limitTextHeight"></p>
+    </mat-card-content>
+
+    <mat-card-actions align="end">
+      <button mat-icon-button class="btn btn-primary" (click)="readMore(post)">
+        <mat-icon>Read More</mat-icon>
+      </button>
+    </mat-card-actions>
+
+    <mat-card-actions align="end">
+      <button mat-icon-button class="btn btn-danger">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</section>

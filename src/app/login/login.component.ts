@@ -41,25 +41,23 @@ export class LoginComponent implements OnInit {
   onButtonClick(useInput: any) {
     console.log('test');
 
-    this.nameSubmit.emit(useInput);
+    this.authenticateService.validateUser(useInput.value).subscribe(
+      (res) => {
+        if (res.status) {
+          this.toastr.success(res.message);
 
-    this.authenticateService
-      .validateUser(useInput.value)
-      .pipe(first())
-      .subscribe(
-        (res) => {
-          if (res.status) {
-            this.toastr.success(res.message);
-            this.localStorage.store('user', res.data);
-            this.router.navigateByUrl('/home');
-          } else {
-            this.toastr.error(res.message);
-          }
-        },
-        (error) => {
-          this.toastr.error('Unexpected Error , Please retry after some time');
+          let userDetails = res.data;
+          console.log(userDetails);
+          this.localStorage.store('user', userDetails[0].username);
+          this.router.navigateByUrl('/home');
+        } else {
+          this.toastr.error(res.message);
         }
-      );
+      },
+      (error) => {
+        this.toastr.error('Unexpected Error , Please retry after some time');
+      }
+    );
 
     useInput.resetForm();
   }

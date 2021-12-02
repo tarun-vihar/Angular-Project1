@@ -1,0 +1,82 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-9">
+      <div class="row post">
+        <div class="col-md-1">
+          <!-- <app-vote-button [post]="post"></app-vote-button> -->
+        </div>
+        <div class="col-md-11">
+          <a class="post-title">{{ post.blogName }}</a>
+          <span>
+            By <a class="username" href="">{{ post.firstName }} </a> At
+            <span> {{ post.duration }} </span>
+          </span>
+          <div>
+            <p class="post-text" [innerHtml]="post.description"></p>
+          </div>
+          <div class="post-comment" *ngIf="!isSameUser">
+            <form [formGroup]="commentForm" (ngSubmit)="postComment()">
+              <div class="form-group">
+                <textarea
+                  class="form-control"
+                  [formControlName]="'text'"
+                  placeholder="Your Thoughts?"
+                ></textarea>
+              </div>
+              <div class="checkboxes">
+                <label for="dislike"
+                  ><input
+                    id="dislike"
+                    type="radio"
+                    value="dislike"
+                    class="hidden"
+                    required="required"
+                    [formControlName]="'sentiment'"
+                  /><span>Dislike &nbsp;</span></label
+                >
+                <label for="like"
+                  ><input
+                    id="like"
+                    type="radio"
+                    value="like"
+                    class="hidden"
+                    required="required"
+                    [formControlName]="'sentiment'"
+                  /><span>Like &nbsp;</span></label
+                >
+              </div>
+              <button
+                type="submit"
+                [disabled]="!commentForm.valid"
+                class="btn btn-primary float-right"
+              >
+                Comment
+              </button>
+            </form>
+          </div>
+          <div style="margin-top: 60px" *ngFor="let comment of comments">
+            <div class="comment">
+              <div class="username">
+                <a routerLink="/user/comment.username"
+                  >{{ comment.firstName }}
+                  <span>({{ comment.sentiment }})</span>
+                </a>
+              </div>
+              <div>
+                <p>
+                  {{ comment.commentedAt }}
+                </p>
+              </div>
+              <b>{{ comment.text }}</b>
+            </div>
+            <hr />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <!-- <app-side-bar></app-side-bar>
+        <app-subreddit-side-bar></app-subreddit-side-bar> -->
+    </div>
+  </div>
+</div>

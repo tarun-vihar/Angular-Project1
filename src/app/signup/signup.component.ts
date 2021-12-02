@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { LocalStorageService } from 'ngx-webstorage';
 
 import { first } from 'rxjs/operators';
 import { User } from '../models/user';
@@ -14,7 +16,9 @@ import { AuthenticationService } from '../services/authentication.service';
 export class SignupComponent implements OnInit {
   constructor(
     private authenticateService: AuthenticationService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private localStorage: LocalStorageService,
+    private router: Router
   ) {}
 
   user: User = <User>{};
@@ -40,12 +44,16 @@ export class SignupComponent implements OnInit {
       .registerUser(this.user)
       .pipe(first())
       .subscribe(
-        (data) => {
-          if (data.status) {
-            this.toastr.success(data.message);
-          } else this.toastr.error(data.message);
+        (res) => {
+          if (res.status) {
+            this.toastr.success(res.message);
+            let userDetails = res.data;
+            console.log(userDetails);
+            this.localStorage.store('user', userDetails[0].username);
+            this.router.navigateByUrl('/home');
+          } else this.toastr.error(res.message);
 
-          console.log(data);
+          console.log(res);
         },
         (error) => {
           this.toastr.error('Unexpected Error , Please retry after some time');
