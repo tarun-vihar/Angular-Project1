@@ -19,6 +19,8 @@ import { HomeComponent } from './home/home.component';
 import { AddBlogComponent } from './add-blog/add-blog.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { ViewBlogComponent } from './view-blog/view-blog.component';
+import { FilterComponent } from './filter/filter.component';
+import { DatePipe } from '@angular/common';
 
 // import {Routin}
 
@@ -32,6 +34,7 @@ import { ViewBlogComponent } from './view-blog/view-blog.component';
     HomeComponent,
     AddBlogComponent,
     ViewBlogComponent,
+    FilterComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,7 +53,7 @@ import { ViewBlogComponent } from './view-blog/view-blog.component';
     }),
     EditorModule,
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent],
   exports: [AppComponent, LoginComponent, SignupComponent],
 })

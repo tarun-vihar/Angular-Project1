@@ -1,17 +1,28 @@
-section {
+.left {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-template-rows: auto;
   grid-gap: 10px;
   margin: 0 auto;
-  max-width: 90%;
+  max-width: 80%;
+  width: 80%;
 }
 mat-card {
   margin: 10px 0;
-  max-width: 60%;
+  max-width: 80%;
 }
 
 .limitTextHeight {
   height: 20px;
   overflow: hidden;
+}
+
+.mat-card-actions-align-end {
+  /* display: flex; */
+  justify-content: flex-end;
+}
+
+.right {
+  float: right;
+  margin: 1%;
 }

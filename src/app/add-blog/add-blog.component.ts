@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrComponentlessModule, ToastrService } from 'ngx-toastr';
 import { LocalStorageService } from 'ngx-webstorage';
 import { AddPostServiceService } from '../services/add-post-service.service';
 import { PostPayload } from './post-payload';
@@ -19,7 +20,8 @@ export class AddBlogComponent implements OnInit {
   constructor(
     private router: Router,
     private addpostService: AddPostServiceService,
-    private localStorage: LocalStorageService
+    private localStorage: LocalStorageService,
+    private toastr: ToastrService
   ) {
     this.addPostForm = new FormGroup({
       title: this.title,
@@ -43,12 +45,16 @@ export class AddBlogComponent implements OnInit {
     this.postPayload.tags = tag.trim().split(',');
     this.postPayload.username = this.localStorage.retrieve('user');
     this.addpostService.addPost(this.postPayload).subscribe(
-      (res) => {
+      (res: any) => {
         console.log(res);
-        this.router.navigateByUrl('/home');
+        if (res.status) {
+          this.router.navigateByUrl('/home');
+        } else {
+          this.toastr.error(res.message);
+        }
       },
       (error) => {
-        console.log('Failure Response');
+        console.log('Failure Unable to post the blog');
       }
     );
   }

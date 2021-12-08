@@ -8,8 +8,12 @@
         <div class="col-md-11">
           <a class="post-title">{{ post.blogName }}</a>
           <span>
-            By <a class="username" href="">{{ post.firstName }} </a> At
-            <span> {{ post.duration }} </span>
+            &nbsp;Published By
+            <a class="username" href="">
+              <b>{{ post.firstName }} </b></a
+            >
+            &nbsp; At
+            <span> {{ post.createdAt }} </span>
           </span>
           <div>
             <p class="post-text" [innerHtml]="post.description"></p>

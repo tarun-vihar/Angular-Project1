@@ -49,6 +49,10 @@ export class LoginComponent implements OnInit {
           let userDetails = res.data;
           console.log(userDetails);
           this.localStorage.store('user', userDetails[0].username);
+          this.localStorage.store(
+            'userDetails',
+            JSON.stringify(userDetails[0])
+          );
           this.router.navigateByUrl('/home');
         } else {
           this.toastr.error(res.message);

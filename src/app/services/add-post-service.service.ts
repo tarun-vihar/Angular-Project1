@@ -15,6 +15,7 @@ export class AddPostServiceService {
   // username = this.localStorge.retrieve('user').username;
 
   public blog: any = new BehaviorSubject<any>({});
+  public userList: any = new BehaviorSubject<any>([]);
 
   constructor(
     private httpClient: HttpClient,
@@ -27,6 +28,14 @@ export class AddPostServiceService {
 
   saveBlog(blog: any) {
     this.blog.next(blog);
+  }
+
+  setAllUsers(users: any) {
+    this.userList.next(users);
+  }
+
+  getUsersList() {
+    return this.userList.asObservable();
   }
 
   addPost(postPayload: PostPayload) {
@@ -45,6 +54,11 @@ export class AddPostServiceService {
     );
   }
 
+  getAllUsers(): Observable<Array<any>> {
+    let extension = 'users/all';
+    return this.httpClient.get<Array<any>>(this.URL + extension);
+  }
+
   delete(id: string) {
     throw new Error('Method not implemented.');
   }
@@ -58,5 +72,10 @@ export class AddPostServiceService {
     console.log(blogId);
     let extension = 'blog/' + blogId;
     return this.httpClient.get(this.URL + extension);
+  }
+
+  followerUsers(followingList: any, username: string) {
+    let extension = `auth/add-following/${username}`;
+    return this.httpClient.post(this.URL + extension, followingList);
   }
 }

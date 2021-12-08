@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddBlogComponent } from './add-blog/add-blog.component';
+import { FilterComponent } from './filter/filter.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'add-blog', component: AddBlogComponent },
   { path: 'blog/:blogId', component: ViewBlogComponent },
+  { path: 'filter', component: FilterComponent },
 ];
 
 @NgModule({

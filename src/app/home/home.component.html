@@ -1,5 +1,23 @@
 <app-header></app-header>
-<section>
+<section class="right">
+  <mat-form-field>
+    <mat-select
+      placeholder="Follow Users"
+      [formControl]="following"
+      [(value)]="selectedFollowing"
+      multiple
+    >
+      <mat-option
+        *ngFor="let user of userList | async"
+        [value]="user.username"
+        >{{ user.firstName + "  " + user.lastName }}</mat-option
+      >
+      <button class="btn btn-info" (click)="addFollowing()">Follow</button>
+    </mat-select>
+  </mat-form-field>
+</section>
+
+<section class="left">
   <mat-card *ngFor="let post of blogs | async">
     <mat-card-content routerLink="{{ post.blogId }}">
       <!-- <img mat-card-image src="{{ blog.image }}" alt="{{ post.title }}" /> -->
@@ -7,7 +25,12 @@
       <p>
         <small
           >Posted by <b> {{ post.firstName }} </b> &bull; on
-          {{ post.published | date: "fullDate" }}</small
+          {{ post.createdAt | date: "fullDate" }}</small
+        >
+        <br />
+        Tags :
+        <small>
+          <i>{{ !!post.tagsList ? post.tagsList : "NA" }} </i></small
         >
       </p>
     </mat-card-content>
@@ -17,14 +40,13 @@
     </mat-card-content>
 
     <mat-card-actions align="end">
-      <button mat-icon-button class="btn btn-primary" (click)="readMore(post)">
-        <mat-icon>Read More</mat-icon>
-      </button>
-    </mat-card-actions>
-
-    <mat-card-actions align="end">
       <button mat-icon-button class="btn btn-danger">
         <mat-icon>delete</mat-icon>
+      </button>
+
+      &nbsp; &nbsp; &nbsp; &nbsp;
+      <button mat-icon-button class="btn btn-primary" (click)="readMore(post)">
+        <mat-icon>Read More</mat-icon>
       </button>
     </mat-card-actions>
   </mat-card>
