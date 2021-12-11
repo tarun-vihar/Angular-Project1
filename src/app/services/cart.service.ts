@@ -58,9 +58,10 @@ export class CartService {
 
   decrease(product: any) {
     for (let cartItem of this.cartItemList) {
-      if (cartItem.id === product.id) {
+      if (cartItem.id === product.id && cartItem.quantity > 0) {
         cartItem.quantity--;
         cartItem.total -= product.price;
+        // cartItem.total = parseFloat(cartItem.total).toFixed(2);
         break;
       }
     }

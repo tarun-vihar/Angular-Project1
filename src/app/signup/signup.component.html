@@ -59,27 +59,6 @@
         <mat-form-field class="example-full-width">
           <input
             matInput
-            placeholder="Username"
-            type="text"
-            name="userName"
-            ngModel
-            #userName="ngModel"
-            required
-          />
-        </mat-form-field>
-
-        <small
-          *ngIf="
-            !!userName.errors && !!userName.errors.required && userName.touched
-          "
-          class="error-message"
-        >
-          Username is required
-        </small>
-
-        <mat-form-field class="example-full-width">
-          <input
-            matInput
             placeholder="Email"
             type="text"
             name="userEmail"

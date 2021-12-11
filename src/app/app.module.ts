@@ -1,22 +1,22 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ToastrModule } from 'ngx-toastr';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from './material.module';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+
 import { HeaderComponent } from './components/header/header.component';
 import { CartComponent } from './components/cart/cart.component';
 import { ProductComponent } from './components/product/product.component';
 import { FilterPipe } from './common/filter.pipe';
-import { BackgroundHeaderComponent } from './background-header/background-header.component';
-// import {Routin}
 
 @NgModule({
   declarations: [
@@ -27,7 +27,6 @@ import { BackgroundHeaderComponent } from './background-header/background-header
     CartComponent,
     ProductComponent,
     FilterPipe,
-    BackgroundHeaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,6 +38,10 @@ import { BackgroundHeaderComponent } from './background-header/background-header
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    ToastrModule.forRoot({
+      timeOut: 10000,
+      preventDuplicates: true,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],

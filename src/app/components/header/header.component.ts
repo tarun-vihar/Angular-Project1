@@ -13,15 +13,17 @@ export class HeaderComponent implements OnInit {
   public currentUser: any = '';
   constructor(
     private cartService: CartService,
-    private authService: AuthenticationService
+    public authService: AuthenticationService
   ) {
     this.cartService.getProducts().subscribe((res: any) => {
       this.totalItems = res.length;
     });
 
-    if (!!this.authService.currentUserValue) {
-      this.currentUser = this.authService.currentUserValue.data;
-    }
+    console.log(authService.isAdmin());
+    console.log(authService.isLoggedIn());
+    // if (!!this.authService.currentUserValue) {
+    //   this.currentUser = this.authService.currentUserValue.data;
+    // }
   }
 
   ngOnInit(): void {}

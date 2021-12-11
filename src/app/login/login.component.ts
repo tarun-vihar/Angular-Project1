@@ -23,11 +23,7 @@ export class LoginComponent implements OnInit {
     private authService: AuthenticationService,
     private router: Router,
     private toastr: ToastrService
-  ) {
-    if (!!this.authService.currentUserValue) {
-      this.router.navigate(['/']);
-    }
-  }
+  ) {}
 
   @Output() nameSubmit: EventEmitter<string> = new EventEmitter<string>();
   ngOnInit(): void {}
@@ -38,9 +34,6 @@ export class LoginComponent implements OnInit {
   // };
 
   onButtonClick(useInput: any) {
-    console.log('test');
-    this.submitted = true;
-    this.showHeading = false;
     this.nameSubmit.emit(useInput);
 
     console.log(useInput);
@@ -49,16 +42,16 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         (data) => {
-          if (data.status) {
-            this.toastr.success(data.message);
-            localStorage.setItem('currnetUser', JSON.stringify(data));
-          } else this.toastr.error(data.message);
+          this.toastr.success('Successfully Resgitered');
+
+          localStorage.setItem('userInfo', JSON.stringify(data));
+          this.router.navigateByUrl('/home');
         },
         (error) => {
-          this.toastr.error('Unexpected Error , Please retry after some time');
+          this.toastr.error();
         }
       );
 
-    useInput.resetForm();
+    // useInput.resetForm();
   }
 }

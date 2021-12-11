@@ -18,9 +18,9 @@ export class SignupComponent implements OnInit {
     private toastr: ToastrService,
     private router: Router
   ) {
-    if (!!this.authenticateService.currentUserValue) {
-      this.router.navigate(['/']);
-    }
+    // if (!!this.authenticateService.currentUserValue) {
+    //   this.router.navigate(['/']);
+    // }
   }
 
   user: User = <User>{};
@@ -36,10 +36,8 @@ export class SignupComponent implements OnInit {
   registerUser(userDetails: any) {
     console.log();
     this.user.email = userDetails.value.userEmail;
-    this.user.firstName = userDetails.value.userFirstName;
-    this.user.lastName = userDetails.value.userLastName;
+    this.user.name = userDetails.value.userFirstName;
     this.user.password = userDetails.value.password;
-    this.user.username = userDetails.value.userName;
 
     console.log(this.user);
     this.authenticateService
@@ -47,15 +45,14 @@ export class SignupComponent implements OnInit {
       .pipe(first())
       .subscribe(
         (data) => {
-          if (data.status) {
-            this.toastr.success(data.message);
-          } else this.toastr.error(data.message);
+          this.toastr.success('Successfully Resgitered');
+
+          localStorage.setItem('userInfo', JSON.stringify(data));
+          this.router.navigateByUrl('/home');
         },
         (error) => {
           this.toastr.error('Unexpected Error , Please retry after some time');
         }
       );
-
-    userDetails.clear();
   }
 }

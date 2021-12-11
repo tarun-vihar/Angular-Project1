@@ -42,7 +42,7 @@
 
               <td><img class="image-card" src="{{ item.image }}" alt="" /></td>
               <td class="width-25">{{ item.description }}</td>
-              <td class="width-12">{{ item.price }}</td>
+              <td class="width-12">{{ item.price | number }}</td>
               <td class="width-12">
                 <button class="btn btn-success" (click)="increment(item)">
                   <i class="fas fa-plus"></i>
@@ -52,7 +52,7 @@
                   <i class="fas fa-minus"></i>
                 </button>
               </td>
-              <td class="width-12">{{ item.total }}</td>
+              <td class="width-12">{{ item.total | number }}</td>
               <td>
                 <button
                   class="width-12"
@@ -76,9 +76,10 @@
                   Shop More
                 </button>
               </td>
-              <td><button class="btn btn-success">Check Out</button></td>
+              <!-- <td><button class="btn btn-success">Check Out</button></td> -->
+              <td>Grand Total :</td>
               <td>
-                <strong> Grand Total : $ {{ grandTotalPrice }} </strong>
+                <strong> : $ {{ grandTotalPrice | number }} </strong>
               </td>
             </tr>
           </tbody>

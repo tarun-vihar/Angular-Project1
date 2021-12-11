@@ -3,7 +3,7 @@
     <div class="navbar-brand align-item-center d-flex">
       <i class="fas fa-shipping-fast logo">
         &nbsp;
-        <strong> ShopAround</strong>
+        <strong> Cal-Cart</strong>
       </i>
 
       <div class="form-group">
@@ -18,10 +18,48 @@
       <span class="fas fa-search search-icon"></span>
     </div>
 
-    <button *ngIf="currentUser"><i class="fas fa-user"></i></button>
+    <!-- <button *ngIf="currentUser"><i class="fas fa-user"></i></button>
     <button *ngIf="!currentUser" routerLink="/login" class="btn btn-primary">
       Login
-    </button>
+    </button> -->
+
+    <div class="col">
+      <div ngbDropdown class="d-inline-block">
+        <button
+          class="btn btn-outline-primary"
+          id="dropdownBasic1"
+          ngbDropdownToggle
+        >
+          Login
+        </button>
+        <div
+          ngbDropdownMenu
+          aria-labelledby="dropdownBasic1"
+          *ngIf="!!authService.isLoggedIn()"
+        >
+          <button ngbDropdownItem>Action - 1</button>
+          <button ngbDropdownItem>Another Action</button>
+          <button ngbDropdownItem>Something else is here</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col" *ngIf="!!authService.isAdmin()">
+      <div ngbDropdown class="d-inline-block">
+        <button
+          class="btn btn-outline-primary"
+          id="dropdownBasic1"
+          ngbDropdownToggle
+        >
+          Admin
+        </button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <button ngbDropdownItem>Action - 1</button>
+          <button ngbDropdownItem>Another Action</button>
+          <button ngbDropdownItem>Something else is here</button>
+        </div>
+      </div>
+    </div>
 
     <button routerLink="/cart" class="btn bty-primary">
       <i class="fas fa-cart-plus cart-icon"></i>
