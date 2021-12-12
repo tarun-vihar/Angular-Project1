@@ -37,20 +37,21 @@ export class LoginComponent implements OnInit {
     this.nameSubmit.emit(useInput);
 
     console.log(useInput);
-    this.authService
-      .validateUser(useInput.value)
-      .pipe(first())
-      .subscribe(
-        (data) => {
-          this.toastr.success('Successfully Resgitered');
+    useInput.value['username'] = useInput.value['email'];
+    this.authService.validateUser(useInput.value).subscribe(
+      (res) => {
+        this.toastr.success('Successfully Resgitered');
+        localStorage.setItem('userInfo', JSON.stringify(res));
+        this.router.navigateByUrl('');
+      },
+      (err) => {
+        console.log(err);
+        let errorMessage =
+          err.error && err.error.detail ? err.error.detail : err.message;
 
-          localStorage.setItem('userInfo', JSON.stringify(data));
-          this.router.navigateByUrl('/home');
-        },
-        (error) => {
-          this.toastr.error();
-        }
-      );
+        this.toastr.success(errorMessage);
+      }
+    );
 
     // useInput.resetForm();
   }

@@ -48,7 +48,7 @@ export class SignupComponent implements OnInit {
           this.toastr.success('Successfully Resgitered');
 
           localStorage.setItem('userInfo', JSON.stringify(data));
-          this.router.navigateByUrl('/home');
+          this.router.navigateByUrl('');
         },
         (error) => {
           this.toastr.error('Unexpected Error , Please retry after some time');

@@ -3,7 +3,7 @@
     <div class="navbar-brand align-item-center d-flex">
       <i class="fas fa-shipping-fast logo">
         &nbsp;
-        <strong> Cal-Cart</strong>
+        <strong> calKart</strong>
       </i>
 
       <div class="form-group">
@@ -23,28 +23,33 @@
       Login
     </button> -->
 
-    <div class="col">
+    <div class="col" *ngIf="!!currentUser">
       <div ngbDropdown class="d-inline-block">
         <button
           class="btn btn-outline-primary"
           id="dropdownBasic1"
           ngbDropdownToggle
         >
-          Login
+          {{ !!currentUser.name ? currentUser.name : currentUser.email }}
         </button>
-        <div
-          ngbDropdownMenu
-          aria-labelledby="dropdownBasic1"
-          *ngIf="!!authService.isLoggedIn()"
-        >
-          <button ngbDropdownItem>Action - 1</button>
-          <button ngbDropdownItem>Another Action</button>
-          <button ngbDropdownItem>Something else is here</button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <button ngbDropdownItem>Profile</button>
+          <button ngbDropdownItem (click)="logout()">Logout</button>
         </div>
       </div>
     </div>
 
-    <div class="col" *ngIf="!!authService.isAdmin()">
+    <div class="col" *ngIf="!currentUser">
+      <button
+        class="btn btn-outline-primary"
+        id="dropdownBasic1"
+        routerLink="/login"
+      >
+        Login
+      </button>
+    </div>
+
+    <div class="col" *ngIf="!!currentUser && !!currentUser.isAdmin">
       <div ngbDropdown class="d-inline-block">
         <button
           class="btn btn-outline-primary"
@@ -54,9 +59,8 @@
           Admin
         </button>
         <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-          <button ngbDropdownItem>Action - 1</button>
-          <button ngbDropdownItem>Another Action</button>
-          <button ngbDropdownItem>Something else is here</button>
+          <button ngbDropdownItem routerLink="/admin/userlist">Users</button>
+          <button ngbDropdownItem>Products</button>
         </div>
       </div>
     </div>

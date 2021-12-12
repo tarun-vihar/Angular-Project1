@@ -26,3 +26,16 @@ body {
 .float-r {
   float: right;
 }
+
+.success {
+  color: green;
+}
+
+.mr-13 {
+  margin-left: 1.3rem;
+}
+
+.alert {
+  color: red;
+}
+@import "~ngx-toastr/toastr.css";

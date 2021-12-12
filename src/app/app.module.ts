@@ -17,6 +17,9 @@ import { HeaderComponent } from './components/header/header.component';
 import { CartComponent } from './components/cart/cart.component';
 import { ProductComponent } from './components/product/product.component';
 import { FilterPipe } from './common/filter.pipe';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { UserListComponent } from './components/user-list/user-list.component';
+import { ProductListComponent } from './components/product-list/product-list.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +30,9 @@ import { FilterPipe } from './common/filter.pipe';
     CartComponent,
     ProductComponent,
     FilterPipe,
+    UserProfileComponent,
+    UserListComponent,
+    ProductListComponent,
   ],
   imports: [
     BrowserModule,
