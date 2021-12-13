@@ -11,6 +11,7 @@ import { User } from '../models/user';
 export class AuthenticationService {
   httpClient: HttpClient;
   URL: string = environment.baseUrl;
+  userLoginStaus = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient) {
     this.httpClient = http;
@@ -56,6 +57,7 @@ export class AuthenticationService {
   public getUserDetails(id: any) {
     const config = this.getTokenHeader();
     let extension = `/api/users/${id}`;
+    console.log(extension);
     return this.httpClient.get<any>(this.URL + extension, config);
   }
 
@@ -75,7 +77,8 @@ export class AuthenticationService {
   public deleteUser(id: number) {
     const config = this.getTokenHeader();
     let extension = `/api/users/delete/${id}`;
-    return this.httpClient.put<any>(this.URL + extension, config);
+    console.log(config);
+    return this.httpClient.delete<any>(this.URL + extension, config);
   }
 
   getTokenHeader() {

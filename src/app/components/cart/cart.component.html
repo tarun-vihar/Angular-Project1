@@ -1,9 +1,9 @@
-<app-header></app-header>
+<!-- <app-header></app-header> -->
 <ng-container *ngIf="products.length == 0">
   <div class="container">
-    <div class="card">
+    <!-- <div class="card">
       <h5 class="card-title">My Cart</h5>
-    </div>
+    </div> -->
 
     <div class="center">
       <img
@@ -38,7 +38,7 @@
           <tbody>
             <tr *ngFor="let item of products; let i = index">
               <td>{{ i + 1 }}</td>
-              <td>{{ item.title }}</td>
+              <td>{{ item.name }}</td>
 
               <td><img class="image-card" src="{{ item.image }}" alt="" /></td>
               <td class="width-25">{{ item.description }}</td>

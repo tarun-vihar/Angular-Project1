@@ -28,12 +28,15 @@ export class ApiService {
 
   listProducts() {
     let extension = `/api/products`;
-    return this.httpClient.get<any>(this.URL + extension);
+    const config = this.authService.getTokenHeader();
+
+    return this.httpClient.get<any>(this.URL + extension, config);
   }
 
   listProductDetails(id: any) {
     let entension = `/api/products/${id}`;
-    return this.httpClient.get<any>(this.URL + entension);
+    const config = this.authService.getTokenHeader();
+    return this.httpClient.get<any>(this.URL + entension, config);
   }
 
   deleteProduct(id: any) {
@@ -42,5 +45,16 @@ export class ApiService {
     return this.httpClient.delete(this.URL + extension, config);
   }
 
-  createProduct() {}
+  createProduct() {
+    const config = this.authService.getTokenHeader();
+    let extension = '/api/products/create';
+    console.log(config);
+    return this.httpClient.post(this.URL + extension, config);
+  }
+
+  updateProduct(product: any) {
+    let config = this.authService.getTokenHeader();
+    let extension = `/api/products/update/${product.id}`;
+    return this.httpClient.put(this.URL + extension, product, config);
+  }
 }

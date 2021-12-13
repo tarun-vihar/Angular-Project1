@@ -7,7 +7,8 @@ import { CartComponent } from './components/cart/cart.component';
 import { ProductComponent } from './components/product/product.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
-
+import { ProductListComponent } from './components/product-list/product-list.component';
+import { ProductEditScreenComponent } from './components/product-edit-screen/product-edit-screen.component';
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'products' },
   { path: 'login', component: LoginComponent },
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'cart', component: CartComponent },
   { path: 'admin/userlist', component: UserListComponent },
   { path: 'admin/user/:id/edit', component: UserProfileComponent },
-  { path: 'admin/user', component: UserProfileComponent },
+  { path: 'admin/productlist', component: ProductListComponent },
+  { path: 'admin/product/:id/edit', component: ProductEditScreenComponent },
 ];
 
 @NgModule({

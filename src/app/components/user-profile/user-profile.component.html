@@ -1,75 +1,38 @@
-<div class="add-post-content">
-  <div class="container">
-    <div>
-      <h3>
-        Update User
-        <span class="fl-r"> <a routerLink="/home">Back To Home</a></span>
-      </h3>
-    </div>
-    <hr />
-    <form [formGroup]="updateUserForm" (ngSubmit)="updateUser()">
-      <div class="form-group">
-        <label class="post-title">Name</label>
-        <input
-          type="text"
-          [formControlName]="'name'"
-          class="form-control"
-          placeholder="Name"
-          required
-        />
-      </div>
+<form [formGroup]="form" class="user-form">
+  <p>
+    <mat-form-field appearance="legacy">
+      <mat-label>Legacy form field</mat-label>
+      <input formControlName="name" matInput placeholder="Full Name" />
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field appearance="standard">
+      <mat-label>Standard form field</mat-label>
+      <input formControlName="email" matInput placeholder="Email" />
+    </mat-form-field>
+  </p>
 
-      <div class="form-group">
-        <label class="post-tags">Email</label>
-        <input
-          type="email"
-          [formControlName]="'email'"
-          class="form-control"
-          placeholder="Email"
-          required
-        />
-      </div>
-
-      <div class="form-group">
-        <label class="post-content">Password</label>
-        <input
-          type="password"
-          [formControlName]="'password'"
-          class="form-control"
-          placeholder="Password"
-          required
-        />
-      </div>
-
-      <div class="form-group">
-        <label class="post-content"> Confirm Password</label>
-        <input
-          type="password"
-          [formControlName]="'confirmPassword'"
-          class="form-control"
-          placeholder="Confirm Password"
-          required
-        />
-      </div>
-
-      <div class="form-group">
-        <label class="post-content"> Admin</label>
-        <input
-          type="checkbox"
-          [formControlName]="'isAdmin'"
-          class="form-control"
-        />
-      </div>
-
-      <div class="form-group">
-        <button
-          type="submit"
-          [disabled]="!updateUserForm.valid"
-          class="btn btn-primary"
-        >
-          Save
-        </button>
-      </div>
-    </form>
-  </div>
-</div>
+  <p>
+    <mat-form-field appearance="outline">
+      <mat-label>Outline form field</mat-label>
+      <input formControlName="password" matInput placeholder="Password" />
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field appearance="outline">
+      <mat-label>Outline form field</mat-label>
+      <input
+        formControlName="confirmPassword"
+        matInput
+        placeholder="Confirm Password"
+        type="password"
+      />
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field appearance="fill">
+      <mat-label>Fill form field</mat-label>
+      <mat-checkbox formControlName="isStaff">Is Staff ?</mat-checkbox>
+    </mat-form-field>
+  </p>
+</form>

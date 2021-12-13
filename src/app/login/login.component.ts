@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
         let errorMessage =
           err.error && err.error.detail ? err.error.detail : err.message;
 
-        this.toastr.success(errorMessage);
+        this.toastr.error(errorMessage);
       }
     );
 

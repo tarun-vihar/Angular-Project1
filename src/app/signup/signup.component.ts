@@ -45,13 +45,13 @@ export class SignupComponent implements OnInit {
       .pipe(first())
       .subscribe(
         (data) => {
-          this.toastr.success('Successfully Resgitered');
-
           localStorage.setItem('userInfo', JSON.stringify(data));
           this.router.navigateByUrl('');
         },
-        (error) => {
-          this.toastr.error('Unexpected Error , Please retry after some time');
+        (err) => {
+          let errorMessage =
+            err.error && err.error.detail ? err.error.detail : err.message;
+          this.toastr.error(errorMessage);
         }
       );
   }

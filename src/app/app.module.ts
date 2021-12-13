@@ -6,7 +6,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { HttpClientModule } from '@angular/common/http';
-
+import { AgGridModule } from 'ag-grid-angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -20,6 +20,10 @@ import { FilterPipe } from './common/filter.pipe';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
+import { DataTableComponent } from './data-table/data-table.component';
+
+import { ProductEditScreenComponent } from './components/product-edit-screen/product-edit-screen.component';
+import { UserServiceService } from './shared/user-service.service';
 
 @NgModule({
   declarations: [
@@ -33,6 +37,8 @@ import { ProductListComponent } from './components/product-list/product-list.com
     UserProfileComponent,
     UserListComponent,
     ProductListComponent,
+    DataTableComponent,
+    ProductEditScreenComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,8 +54,12 @@ import { ProductListComponent } from './components/product-list/product-list.com
       timeOut: 10000,
       preventDuplicates: true,
     }),
+    AgGridModule.withComponents([]),
+    // MatTableModule,
+    // MatPaginatorModule,
+    // MatSortModule,
   ],
-  providers: [],
+  providers: [UserServiceService],
   bootstrap: [AppComponent],
   exports: [AppComponent, LoginComponent, SignupComponent],
 })
