@@ -21,16 +21,16 @@ export class CartService {
 
   addToCart(product: any) {
     let isExist = false;
+    isExist = this.cartItemList.indexOf(product) > -1 ? true : false;
+    if (!isExist) this.cartItemList.push(product);
     for (let cartItem of this.cartItemList) {
       if (cartItem.id === product.id) {
         cartItem.quantity++;
-        cartItem.total += product.price;
-        isExist = true;
+        cartItem.total = cartItem.quantity * product.price;
         break;
       }
     }
 
-    if (!isExist) this.cartItemList.push(product);
     this.productList.next(this.cartItemList);
     this.getTotalAmount();
     console.log(this.cartItemList);
@@ -45,6 +45,8 @@ export class CartService {
   removeCartItem(product: any) {
     this.cartItemList.map((item: any, index: number) => {
       if (item.id === product.id) {
+        item.quantity = 0;
+        item.total = 0;
         this.cartItemList.splice(index, 1);
       }
     });
@@ -58,10 +60,17 @@ export class CartService {
 
   decrease(product: any) {
     for (let cartItem of this.cartItemList) {
-      if (cartItem.id === product.id && cartItem.quantity > 0) {
-        cartItem.quantity--;
-        cartItem.total -= product.price;
-        // cartItem.total = parseFloat(cartItem.total).toFixed(2);
+      if (cartItem.id === product.id) {
+        if (cartItem.quantity > 1) {
+          cartItem.quantity--;
+          cartItem.total = cartItem.quantity * product.price;
+        } else {
+          cartItem.quantity = 0;
+          cartItem.total = 0;
+          cartItem.showQuantity = false;
+          let i = this.cartItemList.indexOf(cartItem);
+          this.cartItemList.splice(i, 1);
+        }
         break;
       }
     }
@@ -73,7 +82,7 @@ export class CartService {
     for (let cartItem of this.cartItemList) {
       if (cartItem.id === product.id) {
         cartItem.quantity++;
-        cartItem.total += product.price;
+        cartItem.total = cartItem.quantity * product.price;
         break;
       }
     }
