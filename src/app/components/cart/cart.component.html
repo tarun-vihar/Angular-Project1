@@ -44,11 +44,11 @@
               <td class="width-25">{{ item.description }}</td>
               <td class="width-12">{{ item.price }}</td>
               <td class="width-12">
-                <button class="btn btn-success" (click)="increment(item)">
+                <button class="btn btn-success btn-sm" (click)="increment(item)">
                   <i class="fas fa-plus"></i>
-                </button>
+                </button>                 
                 {{ item.quantity }}
-                <button class="btn btn-warning" (click)="decrement(item)">
+                <button class="btn btn-warning btn-sm" (click)="decrement(item)">
                   <i class="fas fa-minus"></i>
                 </button>
               </td>

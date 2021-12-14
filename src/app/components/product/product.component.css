@@ -47,3 +47,15 @@
   transition: 0.3s ease-in-out;
   transform: scale(1.05);
 }
+
+.add-to-cart {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: space-evenly;
+}
+
+.h5 {
+ font-size: 1.25rem;
+ margin: 0;
+}
