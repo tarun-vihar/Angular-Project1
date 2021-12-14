@@ -12,9 +12,9 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 export class ProductListComponent implements OnInit {
   // dataSource: Observable<any[]>;
   displayColumns: ColDef[] = [
-    { field: '_id', headerName: 'Product ID', pinned: 'left', resizable: true },
+    { field: 'id', headerName: 'Product ID', pinned: 'left', resizable: true },
     {
-      field: 'name',
+      field: 'title',
       sortable: true,
       filter: true,
       pinned: 'left',
@@ -24,13 +24,6 @@ export class ProductListComponent implements OnInit {
     { field: 'description', resizable: true },
     { field: 'category', sortable: true, filter: true },
     { field: 'price', sortable: true },
-    { field: 'countInStock', sortable: true },
-    {
-      field: 'actions',
-      // cellRenderer: function (params) {
-      //   return;
-      // },
-    },
   ];
 
   public paginationSize = 10;
@@ -48,7 +41,7 @@ export class ProductListComponent implements OnInit {
     //   console.log(res);
     // });
     // [rowData]="rowData"
-    this.productList = productService.listProducts();
+    this.productList = productService.getProducsts();
   }
 
   onGridReady(params: any) {

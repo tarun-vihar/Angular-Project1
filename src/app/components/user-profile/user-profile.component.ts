@@ -6,6 +6,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -28,11 +29,12 @@ export class UserProfileComponent implements OnInit {
     confirmPassword: new FormControl(''),
     isStaff: new FormControl(false),
   });
+  isValidPassword = false;
   constructor(
     private router: Router,
     private activateRoute: ActivatedRoute,
     private authService: AuthenticationService,
-    public userService: UserServiceService
+    private toastr: ToastrService
   ) {
     // const {
     //   { _value },
@@ -49,5 +51,31 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  updateUser() {}
+  updateUser(form: FormGroup) {
+    const { value } = form;
+    let userUpdateInfo: User = {
+      name: value.name,
+      email: value.email,
+      password: value.password,
+      isAdmin: value.isStaff,
+      id: Number(this.userId),
+    };
+
+    this.authService.updateUserByAdmin(userUpdateInfo).subscribe(
+      (res) => {
+        this.router.navigateByUrl('/');
+      },
+      (err) => {
+        let errorMessage =
+          err.error && err.error.detail ? err.error.detail : err.message;
+        this.toastr.error(errorMessage);
+      }
+    );
+  }
+
+  comaparePassword(confirmPassword: string, password: string) {
+    console.log(confirmPassword);
+
+    this.isValidPassword = confirmPassword === password;
+  }
 }

@@ -1,8 +1,7 @@
-<form [formGroup]="form" class="user-form">
+<!-- <form [formGroup]="form" class="user-form">
   <p>
     <mat-form-field appearance="legacy">
       <mat-label>Legacy form field</mat-label>
-      <input formControlName="name" matInput placeholder="Full Name" />
     </mat-form-field>
   </p>
   <p>
@@ -35,4 +34,51 @@
       <mat-checkbox formControlName="isStaff">Is Staff ?</mat-checkbox>
     </mat-form-field>
   </p>
-</form>
+</form> -->
+
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+  <mat-card class="box">
+    <!-- <mat-card-header>
+      <mat-card-title>Sign Up</mat-card-title>
+    </mat-card-header> -->
+
+    <form [formGroup]="form" (ngSubmit)="updateUser(form)">
+      <mat-card-content>
+        <mat-form-field class="example-full-width">
+          <input formControlName="name" matInput placeholder="Full Name" />
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <input formControlName="email" matInput placeholder="Email" />
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <input formControlName="password" matInput placeholder="Password" />
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <input
+            formControlName="confirmPassword"
+            matInput
+            placeholder="Confirm Password"
+            type="password"
+          />
+        </mat-form-field>
+
+        <!-- <small
+          *ngIf="!isValidPassword && confirmPassword.touched"
+          class="error-message"
+        >
+          Password Mismatch
+        </small> -->
+        <mat-checkbox formControlName="isStaff">Is Staff ?</mat-checkbox>
+      </mat-card-content>
+
+      <button mat-stroked-button color="accent" class="btn-block">
+        Update
+      </button>
+
+      <!-- <a routerLink="/login"></a> -->
+    </form>
+  </mat-card>
+</div>

@@ -42,7 +42,7 @@
 <!-- <app-header></app-header> -->
 <div class="container">
   <div class="row">
-    <ng-container *ngFor="let item of productList | filter: searchKey:'name'">
+    <ng-container *ngFor="let item of productList | filter: searchKey:'title'">
       <!-- {{ item | json }} -->
       <div class="card col-md-3">
         <img
@@ -50,7 +50,7 @@
           alt="{{ item.title }}"
           class="card-image-align"
         />
-        <h4 class="card-text-align">{{ item.name }}</h4>
+        <h4 class="card-text-align">{{ item.title }}</h4>
         <p class="card-text-align">{{ item.description }}</p>
         <p><strong> Price : </strong> {{ item.price }}</p>
         <button class="btn btn-primary" (click)="addTocart(item)">

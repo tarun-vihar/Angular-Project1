@@ -22,7 +22,7 @@ export class AuthenticationService {
     return this.httpClient.post<any>(this.URL + extension, formData);
   }
 
-  public registerUser(formData: any) {
+  public registerUser(formData: User) {
     let extension = '/api/users/register';
     return this.httpClient.post<any>(this.URL + extension, formData);
   }
@@ -63,14 +63,13 @@ export class AuthenticationService {
 
   public updateUserProfile(user: User) {
     const config = this.getTokenHeader();
-    let extension = ' /api/users/profile/update';
+    let extension = `/api/users/profile/update/${user.id}`;
     return this.httpClient.put<any>(this.URL + extension, user, config);
   }
 
-  public updateUser(user: User) {
+  public updateUserByAdmin(user: User) {
     const config = this.getTokenHeader();
-    let currenUserID = this.getCurrentUserId();
-    let extension = `/api/users/update/currenUserID`;
+    let extension = `/api/users/update/${user.id}`;
     return this.httpClient.put<any>(this.URL + extension, user, config);
   }
 

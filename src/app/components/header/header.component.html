@@ -3,7 +3,8 @@
     <div class="navbar-brand align-item-center d-flex">
       <i class="fas fa-shipping-fast logo">
         &nbsp;
-        <strong> calKart</strong>
+
+        <strong routerLink="/">calKart</strong>
       </i>
 
       <div class="form-group">
@@ -25,11 +26,7 @@
 
     <div class="col" *ngIf="!!currentUser">
       <div ngbDropdown class="d-inline-block">
-        <button
-          class="btn btn-outline-primary"
-          id="dropdownBasic1"
-          ngbDropdownToggle
-        >
+        <button class="btn btn-dropdown" id="dropdownBasic1" ngbDropdownToggle>
           {{ !!currentUser.name ? currentUser.name : currentUser.email }}
         </button>
         <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
@@ -40,22 +37,14 @@
     </div>
 
     <div class="col" *ngIf="!currentUser">
-      <button
-        class="btn btn-outline-primary"
-        id="dropdownBasic1"
-        routerLink="/login"
-      >
+      <button class="btn btn-dropdown" id="dropdownBasic1" routerLink="/login">
         Login
       </button>
     </div>
 
     <div class="col" *ngIf="!!currentUser && !!currentUser.isAdmin">
       <div ngbDropdown class="d-inline-block">
-        <button
-          class="btn btn-outline-primary"
-          id="dropdownBasic1"
-          ngbDropdownToggle
-        >
+        <button class="btn btn-dropdown" id="dropdownBasic1" ngbDropdownToggle>
           Admin
         </button>
         <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
