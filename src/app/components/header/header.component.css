@@ -5,18 +5,21 @@
 
 .form-control {
   border-radius: 3px;
-  width: 600px;
+  width: 500px;
   margin-left: 20px;
 }
 
 .search-icon {
   position: absolute;
-  z-index: 10;
-  right: 35%;
-  top: 23px;
+  right: 2%;
+  top: 8px;
   color: grey;
 }
 
+.search-bar {
+  position: relative;
+  overflow: hidden;
+}
 .cart-icon {
   font-size: 30px;
   color: white;
