@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  baseUrl: 'http://localhost:8080/',
+  baseUrl: 'http://18.220.232.251:8000',
   productAPI: 'https://fakestoreapi.com/products/',
 };
