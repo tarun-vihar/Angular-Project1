@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { first } from 'rxjs/operators';
 import { AuthenticationService } from '../services/authentication.service';
@@ -25,6 +25,11 @@ export class LoginComponent implements OnInit {
     private toastr: ToastrService
   ) {}
 
+  loginForm = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', Validators.required),
+  });
+
   @Output() nameSubmit: EventEmitter<string> = new EventEmitter<string>();
   ngOnInit(): void {}
 
@@ -33,26 +38,14 @@ export class LoginComponent implements OnInit {
   //   password: 'checking',
   // };
 
-  onButtonClick(useInput: any) {
-    this.nameSubmit.emit(useInput);
-
-    console.log(useInput);
-    useInput.value['username'] = useInput.value['email'];
-    this.authService.validateUser(useInput.value).subscribe(
-      (res) => {
-        this.toastr.success('Successfully Resgitered');
-        localStorage.setItem('userInfo', JSON.stringify(res));
-        this.router.navigateByUrl('');
-      },
-      (err) => {
-        console.log(err);
-        let errorMessage =
-          err.error && err.error.detail ? err.error.detail : err.message;
-
-        this.toastr.error(errorMessage);
-      }
+  public login() {
+    this.authService.login(this.loginForm.value).subscribe(
+      (data) => {},
+      (error) => {}
     );
+  }
 
-    // useInput.resetForm();
+  public get f() {
+    return this.loginForm.controls;
   }
 }

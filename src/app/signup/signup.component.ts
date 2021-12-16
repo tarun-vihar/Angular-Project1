@@ -1,5 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
@@ -13,46 +20,58 @@ import { AuthenticationService } from '../services/authentication.service';
   styleUrls: ['./signup.component.css'],
 })
 export class SignupComponent implements OnInit {
+  user: User = <User>{};
+  public isValidPassword: boolean = false;
+  signUpForm: FormGroup;
   constructor(
     private authenticateService: AuthenticationService,
     private toastr: ToastrService,
     private router: Router
   ) {
-    // if (!!this.authenticateService.currentUserValue) {
-    //   this.router.navigate(['/']);
-    // }
+    this.signUpForm = new FormGroup(
+      {
+        firstName: new FormControl('', Validators.required),
+        lastName: new FormControl('', Validators.required),
+        email: new FormControl('', Validators.required),
+        password: new FormControl('', [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.maxLength(20),
+        ]),
+        confirmPassword: new FormControl('', [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.maxLength(20),
+        ]),
+      },
+      {
+        validators: [this.checkPasswords],
+      }
+    );
   }
 
-  user: User = <User>{};
-  public isValidPassword: boolean = false;
   ngOnInit(): void {}
 
-  comaparePassword(confirmPassword: string, password: string) {
-    console.log(confirmPassword);
+  private checkPasswords: ValidatorFn = (
+    group: AbstractControl
+  ): ValidationErrors | null => {
+    let pass = group.get('password')?.value;
+    let confirmPass = group.get('confirmPassword')?.value;
+    console.log(pass == confirmPass);
+    return pass === confirmPass ? null : { notSame: true };
+  };
 
-    this.isValidPassword = confirmPassword === password;
+  public get f() {
+    return this.signUpForm.controls;
   }
 
-  registerUser(userDetails: any) {
-    console.log();
-    this.user.email = userDetails.value.userEmail;
-    this.user.name = userDetails.value.userFirstName;
-    this.user.password = userDetails.value.password;
-
-    console.log(this.user);
-    this.authenticateService
-      .registerUser(this.user)
-      .pipe(first())
-      .subscribe(
-        (data) => {
-          localStorage.setItem('userInfo', JSON.stringify(data));
-          this.router.navigateByUrl('');
-        },
-        (err) => {
-          let errorMessage =
-            err.error && err.error.detail ? err.error.detail : err.message;
-          this.toastr.error(errorMessage);
-        }
-      );
+  register() {
+    this.authenticateService.register(this.signUpForm.value).subscribe(
+      (data) => {},
+      (error) => {
+        // this.toastr.error('Registration Failed', error);
+        this.toastr.error('Register Failed');
+      }
+    );
   }
 }

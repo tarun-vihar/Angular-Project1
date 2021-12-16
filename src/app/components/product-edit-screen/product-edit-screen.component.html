@@ -1,1 +1,57 @@
-<p>product-edit-screen works!</p>
+<div class="product__form">
+  <h2 class="product__form-title">{{ formTitle }} Product</h2>
+  <form [formGroup]="productForm" (submit)="addProduct()">
+    <mat-form-field appearance="outline" class="example-full-width">
+      <mat-label>Product Name</mat-label>
+      <input
+        matInput
+        placeholder="Name"
+        type="text"
+        name="name"
+        formControlName="name"
+        autocomplete="off"
+      />
+      <!-- <mat-hint>Required field</mat-hint> -->
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="example-full-width">
+      <mat-label>Price</mat-label>
+      <input
+        matInput
+        placeholder="price"
+        type="number"
+        name="price"
+        formControlName="price"
+      />
+      <!-- <mat-hint>price should be a number</mat-hint> -->
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="example-full-width">
+      <mat-label>Product Image</mat-label>
+      <input
+        matInput
+        placeholder="Product Image"
+        type="text"
+        name="image"
+        formControlName="image"
+      />
+
+      <!-- <mat-hint>Required field</mat-hint> -->
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="example-full-width">
+      <mat-label>Description</mat-label>
+      <input
+        matInput
+        placeholder="Description"
+        type="text"
+        name="description"
+        formControlName="description"
+        autocomplete="off"
+      />
+    </mat-form-field>
+
+    <div class="product__form-buttons">
+      <button mat-raised-button color="primary" type="submit">
+        {{ formTitle }}
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,55 +1,65 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { ColDef } from 'ag-grid-community';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { IProduct } from 'src/app/models/IProduct';
+import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
 })
-export class ProductListComponent implements OnInit {
-  // dataSource: Observable<any[]>;
-  displayColumns: ColDef[] = [
-    { field: 'id', headerName: 'Product ID', pinned: 'left', resizable: true },
+export class ProductListComponent implements OnInit, OnDestroy {
+  productsCols: string[] = ['sno', 'image', 'name', 'price', 'actions'];
+  products: IProduct[] = [
     {
-      field: 'title',
-      sortable: true,
-      filter: true,
-      pinned: 'left',
-      resizable: true,
+      name: 'Product1',
+      image: '',
+      price: 1,
+      description: 'ajdfl',
+      available: true,
+      id: 1,
+      _id: 1,
     },
-
-    { field: 'description', resizable: true },
-    { field: 'category', sortable: true, filter: true },
-    { field: 'price', sortable: true },
   ];
+  subscriptions: Subscription[] = [];
 
-  public paginationSize = 10;
-
-  // 'id',
-  // 'name',
-  // 'description',
-  // 'price',
-  // 'category',
-  // 'countInStock',
-  // 'actions',
-  productList: Observable<any[]>;
-  constructor(private productService: ApiService) {
-    // .subscribe((res) => {
-    //   console.log(res);
-    // });
-    // [rowData]="rowData"
-    this.productList = productService.getProducsts();
-  }
+  constructor(private productsSrv: ProductsService) {}
 
   onGridReady(params: any) {
     params.api.sizeColumnsToFit();
   }
-  ngOnInit(): void {}
 
-  createProduct() {
-    this.productService.createProduct();
+  ngOnInit(): void {
+    this.productsSrv.loadProducts();
+
+    const productsRef = this.productsSrv.products$.subscribe(
+      (res: IProduct[]) => {
+        console.log('res:: ', res);
+        this.products = res;
+      }
+    );
+
+    this.subscriptions = this.subscriptions.concat([productsRef]);
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((s) => s.unsubscribe());
+  }
+
+  addProduct() {
+    this.productsSrv.createProduct();
+    // this.router.navigate(['', 'products', 'add']);
+  }
+
+  // updateProduct(product: IProduct) {
+  //   console.log('Update product::', product);
+  //   // this.router.navigate(['', 'products', 'edit', product.id]);
+  // }
+
+  deleteProduct(id: number) {
+    this.productsSrv.deleteProductById(id);
   }
 }

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { StorageService } from '../common/storage.service';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +9,16 @@ export class CartService {
   public cartItemList: any = [];
   public productList: any = new BehaviorSubject<any>([]);
   public searchKey = new BehaviorSubject<String>('');
-  constructor() {}
+
+  constructor(private storageService: StorageService) {
+    const productsAvailable = this.storageService.get('cartInfo');
+    console.log(productsAvailable);
+    if (!!productsAvailable) {
+      this.cartItemList = productsAvailable;
+      this.productList.next(this.cartItemList);
+      this.updateCart();
+    }
+  }
 
   getProducts() {
     return this.productList.asObservable();
@@ -17,6 +27,7 @@ export class CartService {
   setProduct(product: any) {
     this.cartItemList.push(...product);
     this.productList.next(product);
+    this.updateCart();
   }
 
   // addToCart(product: any) {
@@ -52,10 +63,10 @@ export class CartService {
         break;
       }
     }
-
+    console.log(this.cartItemList);
     this.productList.next(this.cartItemList);
     this.getTotalAmount();
-    console.log(this.cartItemList);
+    this.updateCart();
   }
 
   getTotalAmount(): number {
@@ -73,11 +84,13 @@ export class CartService {
       }
     });
     this.productList.next(this.cartItemList);
+    this.updateCart();
   }
 
   removeAllItems() {
     this.cartItemList = [];
     this.productList.next(this.cartItemList);
+    this.updateCart();
   }
 
   decrease(product: any) {
@@ -98,6 +111,7 @@ export class CartService {
     }
     this.productList.next(this.cartItemList);
     this.getTotalAmount();
+    this.updateCart();
   }
 
   increase(product: any) {
@@ -111,5 +125,10 @@ export class CartService {
 
     this.productList.next(this.cartItemList);
     this.getTotalAmount();
+    this.updateCart();
+  }
+
+  updateCart() {
+    this.storageService.add('cartInfo', this.cartItemList);
   }
 }

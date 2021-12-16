@@ -1,6 +1,6 @@
 <!-- Material form login -->
-<h3 *ngIf="showHeading">{{ responseMessgae }}</h3>
-<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+<!-- <h3 *ngIf="showHeading">{{ responseMessgae }}</h3> -->
+<!-- <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
   <mat-card class="box">
     <mat-card-header>
       <mat-card-title>Log in</mat-card-title>
@@ -65,6 +65,77 @@
       </button>
 
       <a routerLink="/signup">New User? Sign Up</a>
+    </form>
+  </mat-card>
+</div> -->
+
+<div
+  class="
+    login-wrapper
+    container
+    d-flex
+    justify-content-center
+    align-items-center
+  "
+>
+  <mat-card class="box">
+    <mat-card-header>
+      <mat-card-title>Log in</mat-card-title>
+    </mat-card-header>
+
+    <form class="example-form" (ngSubmit)="login()" [formGroup]="loginForm">
+      <mat-card-content>
+        <mat-form-field class="example-full-width">
+          <input
+            matInput
+            placeholder="Email"
+            type="text"
+            name="email"
+            formControlName="email"
+            autocomplete="off"
+          />
+        </mat-form-field>
+
+        <small
+          *ngIf="!!f.email.errors && !!f.email.errors.email && f.email.touched"
+          class="error-message"
+        >
+          Please enter valid Email
+        </small>
+
+        <mat-form-field class="example-full-width">
+          <input
+            matInput
+            placeholder="Password"
+            name="password"
+            type="password"
+            formControlName="password"
+            required
+          />
+        </mat-form-field>
+        <small
+          *ngIf="
+            !!f.password.errors &&
+            !!f.password.errors.required &&
+            f.password.touched
+          "
+          class="error-message"
+        >
+          Password is required
+        </small>
+      </mat-card-content>
+
+      <button
+        mat-stroked-button
+        color="accent"
+        class="btn-block"
+        type="submit"
+        [disabled]="loginForm.invalid"
+      >
+        Log in
+      </button>
+
+      <a [routerLink]="['', 'signup']">New User? Sign Up</a>
     </form>
   </mat-card>
 </div>

@@ -1,4 +1,4 @@
-<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+<!-- <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
   <mat-card class="box">
     <mat-card-header>
       <mat-card-title>Sign Up</mat-card-title>
@@ -136,23 +136,147 @@
       <a routerLink="/login">Already have Account ? Sign In</a>
     </form>
   </mat-card>
+</div> -->
+
+<div
+  class="
+    login-wrapper
+    container
+    d-flex
+    justify-content-center
+    align-items-center
+  "
+  fxLayout="row"
+  fxLayoutAlign="center center"
+>
+  <mat-card class="box">
+    <mat-card-header>
+      <mat-card-title>Sign Up</mat-card-title>
+    </mat-card-header>
+
+    <form [formGroup]="signUpForm" class="example-form" (ngSubmit)="register()">
+      <mat-card-content>
+        <mat-form-field class="example-full-width">
+          <input
+            matInput
+            placeholder="First Name"
+            type="text"
+            name="firstName"
+            formControlName="firstName"
+            required
+          />
+        </mat-form-field>
+
+        <small
+          *ngIf="
+            !!f.firstName.errors &&
+            !!f.firstName.errors.required &&
+            f.firstName.touched
+          "
+          class="error-message"
+        >
+          First Name is required
+        </small>
+
+        <mat-form-field class="example-full-width">
+          <input
+            matInput
+            placeholder="Last Name"
+            type="text"
+            name="lastName"
+            formControlName="lastName"
+            required
+          />
+        </mat-form-field>
+
+        <small
+          *ngIf="
+            !!f.lastName.errors &&
+            !!f.lastName.errors.required &&
+            f.lastName.touched
+          "
+          class="error-message"
+        >
+          Last Name is required
+        </small>
+
+        <mat-form-field class="example-full-width">
+          <input
+            matInput
+            placeholder="Email"
+            type="text"
+            name="email"
+            formControlName="email"
+            autocomplete="off"
+            email="true"
+            required
+          />
+        </mat-form-field>
+
+        <small
+          *ngIf="
+            !!f.email.errors && !!f.email.errors.required && f.email.touched
+          "
+          class="error-message"
+        >
+          Email is required
+        </small>
+
+        <mat-form-field class="example-full-width">
+          <input
+            matInput
+            placeholder="Enter Password"
+            type="password"
+            name="password"
+            formControlName="password"
+            required
+          />
+        </mat-form-field>
+
+        <small
+          *ngIf="
+            !!f.password.errors &&
+            !!f.password.errors.pattern &&
+            f.password.touched
+          "
+          class="error-message"
+        >
+          password must be 8-20 characters
+        </small>
+
+        <mat-form-field class="example-full-width">
+          <input
+            matInput
+            placeholder="Confirm Password"
+            type="password"
+            name="confirmPassword"
+            formControlName="confirmPassword"
+            required
+          />
+        </mat-form-field>
+
+        <small
+          *ngIf="
+            f.confirmPassword.touched &&
+            f.confirmPassword.errors &&
+            f.confirmPassword.errors.notSame
+          "
+          class="error-message"
+        >
+          Password Mismatch
+        </small>
+      </mat-card-content>
+
+      <button
+        mat-stroked-button
+        color="accent"
+        class="btn-block"
+        [disabled]="signUpForm.invalid"
+      >
+        Register
+      </button>
+
+      <a [routerLink]="['', 'login']">Already have Account ? Sign In</a>
+    </form>
+  </mat-card>
 </div>
-
-<!-- 
-  <mat-card-content>
-
-
-   
-
- 
-
-  <button
-    mat-stroked-button
-    color="accent"
-    class="btn-block"
-    (click)="onButtonClick(signup_form.value)"
-  >
-    Log in
-  </button>
-  
-  <!-- {{ userPassword.untounched }} -->

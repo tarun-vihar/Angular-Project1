@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { User } from 'src/app/models/user';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { CartService } from 'src/app/services/cart.service';
 
@@ -11,7 +12,8 @@ import { CartService } from 'src/app/services/cart.service';
 export class HeaderComponent implements OnInit {
   public totalItems: number = 0;
   public searchKey: string = '';
-  public currentUser: any;
+  isLoggedIn: boolean = false;
+  currentUser: User | null;
   constructor(
     private cartService: CartService,
     public authService: AuthenticationService,
@@ -21,13 +23,21 @@ export class HeaderComponent implements OnInit {
       this.totalItems = res.length;
     });
 
-    console.log(!!this.currentUser);
-    let userInfo = this.authService.isLoggedIn();
-    if (!!userInfo) this.currentUser = JSON.parse(userInfo);
-    else this.currentUser = '';
+    this.isLoggedIn = this.authService.isLoggedIn();
+    if (!!this.isLoggedIn) {
+      this.currentUser = this.authService.getUserInfo();
+    } else {
+      this.currentUser = null;
+    }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.authService.authState.subscribe((data) => {
+      console.log(data, 'data here');
+      this.isLoggedIn = Boolean(data);
+      this.currentUser = this.authService.getUserInfo();
+    });
+  }
 
   search(event: any) {
     this.searchKey = (event.target as HTMLInputElement).value;

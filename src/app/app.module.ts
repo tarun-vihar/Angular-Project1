@@ -20,7 +20,6 @@ import { FilterPipe } from './common/filter.pipe';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
-import { DataTableComponent } from './data-table/data-table.component';
 
 import { ProductEditScreenComponent } from './components/product-edit-screen/product-edit-screen.component';
 import { UserServiceService } from './shared/user-service.service';
@@ -37,7 +36,6 @@ import { UserServiceService } from './shared/user-service.service';
     UserProfileComponent,
     UserListComponent,
     ProductListComponent,
-    DataTableComponent,
     ProductEditScreenComponent,
   ],
   imports: [

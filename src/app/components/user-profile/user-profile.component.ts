@@ -27,7 +27,7 @@ export class UserProfileComponent implements OnInit {
     email: new FormControl(''),
     password: new FormControl(''),
     confirmPassword: new FormControl(''),
-    isStaff: new FormControl(false),
+    isAdmin: new FormControl(false),
   });
   isValidPassword = false;
   constructor(
@@ -57,13 +57,13 @@ export class UserProfileComponent implements OnInit {
       name: value.name,
       email: value.email,
       password: value.password,
-      isAdmin: value.isStaff,
+      isAdmin: value.isAdmin,
       id: Number(this.userId),
     };
 
     this.authService.updateUserByAdmin(userUpdateInfo).subscribe(
       (res) => {
-        this.router.navigateByUrl('/');
+        this.router.navigate(['', 'admin', 'userlist']);
       },
       (err) => {
         let errorMessage =

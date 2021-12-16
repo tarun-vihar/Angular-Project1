@@ -37,20 +37,28 @@ export class ProductComponent implements OnInit {
       this.cartList = res;
     });
 
-    this.api.getProducsts().subscribe((res) => {
+    console.log(this.cartList);
+    this.api.listProducts().subscribe((res) => {
       this.isLoading = false;
       this.productList = res;
+      this.productList = this.productList.filter((item: any) => {
+        return !item.name || item.name.indexOf('Sample') == -1;
+      });
       this.productList.forEach((item: any) => {
         Object.assign(item, {
           quantity: 0,
           total: item.price,
           showQuantity: false,
+          title: !!item.title ? item.title : item.name,
+          id: !item.id ? item._id : item.id,
+          price: !!item.price ? item.price : 0,
         });
       });
+
       if (this.productList.length != 0 && this.cartList.length != 0) {
         for (let product in this.productList) {
           for (let item in this.cartList) {
-            if (this.cartList[item].id === this.productList[product].id) {
+            if (this.cartList[item]._id === this.productList[product]._id) {
               this.productList[product] = this.cartList[item];
             }
           }
